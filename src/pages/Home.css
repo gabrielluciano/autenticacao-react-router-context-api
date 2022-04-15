@@ -1,0 +1,22 @@
+.Home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Home .navigation-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Home .navigation-menu a {
+  font-size: 24px;
+  text-decoration: none;
+  color: rgb(34, 34, 34);
+}
+
+.Home a:hover {
+  text-decoration: underline;
+  color: rgb(0, 21, 129);
+}
