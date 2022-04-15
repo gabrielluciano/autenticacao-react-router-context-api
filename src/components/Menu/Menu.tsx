@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
+import api from "../../util/api";
 import "./Menu.css";
 
 function Menu() {
@@ -11,6 +12,7 @@ function Menu() {
   function handleSign() {
     if (authenticated) {
       localStorage.removeItem("AUTHENTICATED_USER");
+      delete api.defaults.headers.common["Authorization"];
       setAuthenticated(null);
       navigate("/");
     } else {

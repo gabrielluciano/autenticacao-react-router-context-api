@@ -22,7 +22,7 @@ function Login() {
   const location = useLocation();
 
   const state = location.state as CustomState;
-  const from = state.from.pathname || "/";
+  const from = state?.from?.pathname || "/";
 
   async function handleLogin(e: React.MouseEvent<HTMLElement>) {
     e.preventDefault();
@@ -32,9 +32,14 @@ function Login() {
       const { data: userData } = resp;
       const { token } = userData;
 
+      // Set authenticated state
       authContext.setAuthenticated(userData);
+
+      // Save user data and token on localStorage
       localStorage.setItem("AUTHENTICATED_USER", JSON.stringify(userData));
-      api.defaults.headers.common = { Authorization: `Bearer ${token}` };
+
+      // Adds authorization token to request headers
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       // Redirect
       navigate(from, { replace: true });
@@ -54,6 +59,7 @@ function Login() {
             type="text"
             id="email"
             name="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -65,6 +71,7 @@ function Login() {
             type="password"
             id="password"
             name="password"
+            autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

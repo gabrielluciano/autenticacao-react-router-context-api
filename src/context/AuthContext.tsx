@@ -4,11 +4,11 @@
  * it validate the token saved in localStorage (AUTHENTICATED_USER)
  * by making a request to the "validateToken" API endpoint. If the
  * token is valid, the endpoint will return "true" and the user data
- * and JWT Token will be setted in the authenticated state. If the 
+ * and JWT Token will be setted in the authenticated state. If the
  * user is not authenticated or the token is not valid (endpoint returns
  * "false") then set the authenticated state to null. While
  * validantingToken is true, it renders the Loading component instead of
- * the children
+ * the children.
  */
 import React, { useEffect, useState } from "react";
 
@@ -42,6 +42,8 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
 
       if (isTokenValid) {
         setAuthenticated(userData);
+        const { token } = userData;
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       }
     }
 
